@@ -1,0 +1,46 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "Windows",
+            "displayName": "Windows 64",
+            "description": "Using compilers for Visual Studio 17 2022 (x86_x64 architecture)",
+            "generator": "Visual Studio 17 2022",
+            "toolset": "host=x86",
+            "architecture": "x64",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            }
+        },
+        {
+            "name": "WebEm",
+            "displayName": "Emscripten for Web",
+            "description": "Sets Ninja generator, build and install directory",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "PLATFORM": "Web",
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Windows-debug",
+            "displayName": "Visual Studio Community 2022 Release - x86_amd64 - Debug",
+            "configurePreset": "Windows",
+            "configuration": "Debug"
+        },
+        {
+            "name": "Debug",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "WebEm"
+        }
+    ]
+}
